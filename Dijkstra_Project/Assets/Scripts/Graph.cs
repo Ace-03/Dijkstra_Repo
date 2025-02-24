@@ -36,7 +36,7 @@ public class Graph
             foreach (Node toNode in fromNode.ConnectsTo)
             {
                 float costMult = toNode.CostMult;
-                Debug.Log("CostMult = " + costMult);
+                //Debug.Log("CostMult = " + costMult);
                 float cost = ((toNode.transform.position * costMult) - fromNode.transform.position).magnitude;
                 Connection c = new Connection(cost, costMult, fromNode, toNode);
                 mConnections.Add(c);
