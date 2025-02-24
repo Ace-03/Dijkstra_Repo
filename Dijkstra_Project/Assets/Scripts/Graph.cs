@@ -20,6 +20,8 @@ public class Graph
         return connections;
     }
 
+
+
     public void Build()
     {
         // find all nodes in scene
@@ -33,8 +35,10 @@ public class Graph
         {
             foreach (Node toNode in fromNode.ConnectsTo)
             {
-                float cost = (toNode.transform.position - fromNode.transform.position).magnitude;
-                Connection c = new Connection(cost, fromNode, toNode);
+                float costMult = toNode.CostMult;
+                Debug.Log("CostMult = " + costMult);
+                float cost = ((toNode.transform.position * costMult) - fromNode.transform.position).magnitude;
+                Connection c = new Connection(cost, costMult, fromNode, toNode);
                 mConnections.Add(c);
             }
         }
@@ -44,18 +48,25 @@ public class Graph
 public class Connection
 {
     float cost;
+    float costMult;
     Node fromNode;
     Node toNode;
 
-    public Connection(float cost, Node fromNode, Node toNode)
+    public Connection(float cost, float costMult, Node fromNode, Node toNode)
     {
         this.cost = cost;
+        this.costMult = costMult;
         this.fromNode = fromNode;
         this.toNode = toNode;
     }
     public float getCost()
     {
         return cost;
+    }
+
+    public float getCostMult()
+    {
+        return costMult;
     }
 
     public Node getFromNode()
@@ -67,4 +78,6 @@ public class Connection
     {
         return toNode;
     }
+
+    
 }
